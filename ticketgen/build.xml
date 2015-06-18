@@ -1,0 +1,59 @@
+<project default="package-amp">
+
+	<!-- Set these as required -->
+	<property name="alfresco.sdk" value="/home/raghavbhardwaj/Pictures/alfresco_sdk/lib"/>
+	<property name="spring.sdk" value="/home/raghavbhardwaj/Pictures/spring-framework-4.1.6.RELEASE/libs"/>	
+	<property name="alfresco.install" value="/home/raghavbhardwaj/test_alfresco/alfresco-5.0.d"/>
+	<property name="war.file" value="${alfresco.install}/tomcat/webapps/alfresco"/>
+	<property name="module.id" value="gettickett"/>
+
+	<property name="project.dir" value="."/>
+	<property name="build.dir" value="${project.dir}/build"/>
+	<property name="config.dir" value="${project.dir}/config"/>
+	<property name="jar.file" value="${build.dir}/lib/${module.id}.jar"/>
+	<property name="amp.file" value="${build.dir}/dist/${module.id}.amp"/>
+
+	<property name="mmt.path" value="${alfresco.install}/bin/alfresco-mmt.jar"/>
+	<property name="mmt.install" value="install ${amp.file} ${war.file} -verbose"/>
+
+	<target name="mkdirs">
+		<mkdir dir="${build.dir}/dist" />
+		<mkdir dir="${build.dir}/lib" />
+	</target>
+	
+	<path id="class.path">
+		<dirset dir="${build.dir}" />
+		<fileset dir="${alfresco.sdk}" includes="**/*.jar"/>
+		<fileset dir="${spring.sdk}" includes="**/*.jar"/>
+	</path>
+	
+	<target name="compile">
+		<mkdir dir="${build.dir}/classes" />
+		<javac classpathref="class.path" srcdir="${project.dir}/src" destdir="${build.dir}/classes" />
+	</target>
+
+	<target name="package-jar" depends="compile">
+		<jar destfile="${jar.file}" >
+			<fileset dir="${build.dir}/classes" excludes="**/custom*,**/*Test*" includes="**/*.class" />
+		</jar>
+	</target>
+
+	<target name="package-amp" depends="mkdirs, package-jar" description="Package the Module" >
+		<zip destfile="${amp.file}" >
+			<fileset dir="${project.dir}/build" includes="lib/*.jar" />
+			<fileset dir="${project.dir}" includes="config/**/*.*" excludes="**/module.properties" />
+			<fileset dir="${project.dir}/config/alfresco/module/${module.id}" includes="module.properties" />
+		</zip>
+	</target>
+
+	<target name="update-war" depends="package-amp" description="Update the WAR file." >
+		<echo>Installing AMP ${amp.file} into WAR ${war.file}</echo>
+		<java jar="${mmt.path}" fork="true" failonerror="true">
+			<arg line="${mmt.install}"/>
+		</java>
+
+	</target>
+
+</project>
+
+           

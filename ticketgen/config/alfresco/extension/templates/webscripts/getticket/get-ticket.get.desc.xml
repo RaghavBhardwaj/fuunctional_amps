@@ -1,0 +1,1 @@
+<webscript> <shortname>Get Documents</shortname> <description>Display all Documents within Folder</description> <url>/get-ticket</url> <format default="html">argument</format> <authentication>guest</authentication> </webscript>
