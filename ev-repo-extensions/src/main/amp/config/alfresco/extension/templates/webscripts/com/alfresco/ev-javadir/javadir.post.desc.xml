@@ -1,0 +1,6 @@
+<webscript> 
+<shortname>eisenvault</shortname> 
+<description>Java-backed</description>
+<url>/javadir</url>
+<authentication>guest</authentication> 
+</webscript> 
