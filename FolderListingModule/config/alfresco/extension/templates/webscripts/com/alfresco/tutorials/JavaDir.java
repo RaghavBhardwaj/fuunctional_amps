@@ -105,144 +105,192 @@ String dropdown;
 		  this.nodeService = serviceRegistry.getNodeService();
 		  this.fileFolderService = serviceRegistry.getFileFolderService();
 		  Map<Integer,String> nodes = new TreeMap<Integer,String>();
+		
+ 		
 		  String split1=dropdown.substring(dropdown.indexOf("param="));		
-		String split2=split1.substring(0,split1.indexOf("param2"));
-		String split1b=split1.substring(split1.indexOf("param2"));
-		String split2b=split1b.substring(split1b.indexOf("foldername="));
-		String site_name=split1b.substring(split1b.indexOf("foldername="),split1b.indexOf("&"));
-		String final_name=site_name.replaceAll("foldername=","");
-		String inner = split2.replaceAll("param=", "");
-		String innerf=inner.replaceAll("documentLibrary", "");		  
-		String inner_arr[]=inner.split("/");
-		String outer_ar =split2b.replaceAll("%"," ").replaceAll("2520", "");
-		String out_fm="";    
-		String in_fm="";    
-        ArrayList<String> entry_nodes=new ArrayList<String>();
-		String filterchain="";
-		          entry_nodes.add("Sites");
-				  entry_nodes.add(final_name);
-				  entry_nodes.add("documentLibrary");
-                     
- 
+		
+			String split2b=split1.substring(split1.indexOf("foldername="));
+			  String site_name=split1.substring(split1.indexOf("foldername="),split1.indexOf("&"));
+			String final_name=site_name.replaceAll("foldername=","");
+ 	 
+			String outer_ar=split2b;
+			String out_fm="";    
+			String in_fm="";    
+		       ArrayList<String> entry_nodes=new ArrayList<String>();
 
-		        	  
-		        	  for(String inner1:inner_arr){
-		        		 
-		        		  
-		        		  if(outer_ar.contains(inner1.replaceAll("%20"," "))||outer_ar.contains(inner1.replaceAll("2520", ""))){
-		        			  if(!inner1.equalsIgnoreCase("&")){
-		        				 
-		        				  nodes.put(outer_ar.indexOf(inner1.replaceAll("%20"," ").replaceAll("2520", "")),inner1.replaceAll("%20"," "));
-		        				 // entry_nodes.add(inner1.replaceAll("%20", " "));
-		        			  }  
-		        		  }
-		        		  in_fm=inner1+" "+in_fm;
-		        		  
-		        	  }
-		        	  
-		        	  
-		        	  ArrayList<String> tempa=new ArrayList<String>(nodes.values());
-		        	for(String h:tempa){
-		        		
-		        		entry_nodes.add(h);
-		        		
-		        		
-		        	}
-		        
-		          
-		          
-//   
-//   
-//	  for(String inner1:inner_arr){
-//		   if(!inner1.equalsIgnoreCase("&")){
-//			   int ikey=0;
-//		  
-//	
-//		  String inner_chars= inner1.replaceAll("%20","");
-//              int len=0;
-//		   char[] chars1 = inner_chars.toCharArray();
-//           for(char c1:chars1){
-//        	   
-//        	if(!(outer_ar.indexOf(c1)==-1)){
-//        		
-//        		len++;
-//        		  ikey=outer_ar.indexOf(c1)+ikey;
-//        		
-//        		
-//        		
-//        	}
-//        	   
-//        	   
-//        	   
-//        	   
-//        	   
-//        	   
-//           }   
-//		   if(len==inner_chars.length()){
-//			  
-//			   nodes.put(ikey, inner1.replaceAll("%20", " "));
-//
-//			  
-//		   
-//		   } 
-////		    
-//			   
-//		  
-//		   
-//		   }
-//		  
-// 		  in_fm=inner1+in_fm+"";
-//
-//		   
-//		   
-//	  }	    	  
-//
-//	 
-//	  
-//	 	        ArrayList<String> change=new ArrayList<String>(nodes.values());  
-//
-//	 	               for(String ss:change){
-//	 	            	   
-//	 	            	//   entry_nodes.add(ss);
-//	 	            	   
-//	 	            	   
-//	 	            	   
-//	 	            	   
-//	 	            	   
-//	 	               }
-//	 	        //              
-//	    change.add(inner1);
-//	    if(wordList1.containsAll(change)){
-//	  
-//	    	  if(!inner1.equalsIgnoreCase("&")){
-//              nodes.add(inner1);
-// 			  } 
-//	    
-//	    }
-		//  in_fm=inner1+in_fm+"";
-		  
-          
-		  
-		  
-		  
+			          entry_nodes.add("Sites");
+					  entry_nodes.add(final_name);
+					  entry_nodes.add("documentLibrary");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		String pre_string="";
+		if(outer_ar.contains("%7C")){
+
+		
+		String pure_string=outer_ar.substring(outer_ar.indexOf("%7C")+3,outer_ar.lastIndexOf("%7C"));
+		if(pure_string.contains("%2F")){
+		String split_arr[]=pure_string.split("%2F");
+		
+		String [] special_chars={"%2520","%2521","%40","%2523","%2524","%2525","%255","%2526","%2528","%2529","%2560","%257E","%253D","%2527","%2B","%252C","%253B","%257B","%257D","%255B","%255D"
+		};
+		
+		for(String sd:split_arr){
+		if(!(sd=="")){
+			for(String sp:special_chars){
+			if(sd.contains("%2520")){
+
+				sd=sd.replaceAll("%2520"," ");
+				 }else if(sd.contains("%40")){
+
+				 sd=sd.replaceAll("%40","@");
+
+				}else if(sd.contains("%2523")){
+
+				sd=sd.replaceAll("%2523","#");
+
+				}else if(sd.contains("%2524")){
+
+				sd=sd.replaceAll("%2524","$");
+
+				}else if(sd.contains("%2525")){
+
+			sd=sd.replaceAll("%2525","%");
+
+				}else if(sd.contains("%255")){
+
+				sd=sd.replaceAll("%255","^");
+
+				}else if(sd.contains("%2526")){
+
+				 sd=sd.replaceAll("%2526","&");
+
+				}else if(sd.contains("%2528")){
+
+				 sd=sd.replaceAll("%2528","(");
+
+				}else if(sd.contains("%2529")){
+
+				sd=sd.replaceAll("%2529",")");
+
+				}else if(sd.contains("%2560")){
+
+				 sd=sd.replaceAll("%2560","`");
+
+				}else if(sd.contains("%257E")){
+
+				 sd=sd.replaceAll("%257E","~");
+
+				}else if(sd.contains("%253D")){
+
+				sd=sd.replaceAll("%253D","=");
+
+				}else if(sd.contains("%2527")){
+
+				sd=sd.replaceAll("%2527","'");
+
+				}else if(sd.contains("%2B")){
+
+				sd=sd.replaceAll("%2B","+");
+
+				}else if(sd.contains("%252C")){
+
+				sd=sd.replaceAll("%252C",",");
+
+				}else if(sd.contains("%253B")){
+
+				 sd=sd.replaceAll("%253B",";");
+
+				}else if(sd.contains("%257B")){
+
+				sd=sd.replaceAll("%257B","{");
+
+				}else if(sd.contains("%257D")){
+
+				sd=sd.replaceAll("%257D","}");
+
+				}else if(sd.contains("%255B")){
+
+				sd=sd.replaceAll("%255B","[");
+
+				}else if(sd.contains("%255D")){
+
+				 sd=sd.replaceAll("%255D","]");
+
+				}
+		
+			}
+				
+		
+		entry_nodes.add(sd);
 	
-//	   char[] chars2 = in_fm.toCharArray();
-//  
-//		        	for(char c:chars){
-//		        		for(char inc:chars2){
-//		        			
-//		        			
-//		        			
-//		        			
-//		        			
-//		        			
-//		        		}
-//		        		
-		        		
-		        		
-		        		
-		        		
-		        		
+		}
+		
+		}
+		}	
+		}
+		entry_nodes.removeAll(Arrays.asList("",null));
+		
+		File urlf=new File("/home/raghav_bhardwaj_eisenvault_com/Documents/url.txt");
+		try {
+			urlf.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			FileWriter fwd=new FileWriter(urlf);
+			//fwd.append(parentNode.toString());
+             fwd.append("\n");
+            fwd.append(entry_nodes.toString());
+			
+            
+ 
+fwd.close();
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
 		        		  
 		        	  
 		        	  
@@ -253,6 +301,7 @@ String dropdown;
 		          
 		  //nodes.add("test");
  		  NodeRef companyhome=repository.getCompanyHome();
+ 		  
 		  NodeRef parentNode;
 		  NodeRef doclib;
  		  try {
@@ -262,26 +311,6 @@ String dropdown;
  			  
  			  parentNode = serviceRegistry.getFileFolderService().resolveNamePath(companyhome, entry_nodes).getNodeRef();
 String uul=req.getURL();
-			File urlf=new File("/home/raghav_bhardwaj_eisenvault_com/Documents/url.txt");
-			try {
-				urlf.createNewFile();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			try {
-				FileWriter fwd=new FileWriter(urlf);
-				//fwd.append(parentNode.toString());
-                fwd.append(in_fm);
-                fwd.append("\n");
-                fwd.append(entry_nodes.toString());
-				fwd.close();
-				
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			
 			
 			if (parentNode != null) {
@@ -292,7 +321,7 @@ String uul=req.getURL();
  				            if(field.getName().equals("file") && field.getIsFile()) {
 				            try {
 							
-				            	ttfile=new File("/home/raghav_bhardwaj_eisenvault_com/Documents/"+field.getFilename());
+				            	ttfile=new File("/home/raghav_bhardwaj_eisenvault_com/Documents/"+field.getFilename().replaceAll("\\s",""));
 				            	ttfile.createNewFile();
 				            	OutputStream outputStream = new FileOutputStream(ttfile);
 org.apache.commons.io.IOUtils.copy(field.getInputStream(), outputStream);
@@ -453,9 +482,10 @@ outputStream.close();
 //		    String tempdir=System.getProperty("java.io.tmpdir");    
 		        
 	
-		     filename=field.getFilename();
-			 String []s1=filename.split("\\.");
-			 String s2=s1[0];
+		     filename=field.getFilename().replaceAll("\\s","");
+			 String actual_filename=field.getFilename();
+			 String final_filename=actual_filename.substring(0,actual_filename.lastIndexOf("."));
+			 String s2=filename.substring(0,filename.lastIndexOf("."));
 		     String attr_lang=req.getParameter("languages");
 		     if(attr_lang.equalsIgnoreCase("English")){
 		     Process p = Runtime.getRuntime().exec("tesseract "+"/home/raghav_bhardwaj_eisenvault_com/Documents/"+filename+" "+"/home/raghav_bhardwaj_eisenvault_com/Documents/"+s2+" pdf");
@@ -505,13 +535,13 @@ outputStream.close();
 		        
 		         
 		        
-		
+		        
 		        InputStream targetStream = FileUtils.openInputStream(finalupload);				 
 		        String fileName = finalupload.getName()+".pdf";
 		        MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();				       
 		        String mimeType = "Adobe PDF Document";		        
 		        
- 				        		NodeRef newNode = createNewNode(parentNode, s2+".pdf");
+ 				        		NodeRef newNode = createNewNode(parentNode,final_filename+".pdf");
 		        
 		        
 		        
@@ -526,7 +556,7 @@ outputStream.close();
 		   System.out.println(e);
 		  }
 		        
-		
+		        
 		        
  		        
 				  return success;
