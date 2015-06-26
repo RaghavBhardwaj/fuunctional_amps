@@ -4,7 +4,7 @@
 var ghtml="${sessionTicket}"
 var newlink=window.location.href;
 var rmlink=newlink.substring("param=");
-window.location='http://173.255.118.110:8080/alfresco/service/javadir?alf_ticket='+ghtml+'#'+newlink;
+window.location='http://146.148.86.88/alfresco/service/javadir?alf_ticket='+ghtml+'#'+newlink;
 
 
 
