@@ -1,0 +1,28 @@
+<alfresco-config>
+	<!-- Introduction of new namespaces defined by this model -->
+	<namespaces>
+		<namespace uri="http://www.eisenvault.net/model/content/1.0" prefix="ev" />
+	</namespaces>
+	
+	<!-- Document Library config section -->
+    <config evaluator="string-compare" condition="DocumentLibrary">
+    	<types>
+			<type name="cm:content">
+				<subtype name="ev:doc" />
+			</type>
+		</types>
+    </config>
+    
+    <!-- Search config section -->
+    <config replace="true" evaluator="string-compare" condition="AdvancedSearch">
+	    <advanced-search>
+	        <!-- Forms for the advanced search type list -->
+	        <forms>
+	            <form labelId="search.form.label.cm_content" descriptionId="search.form.desc.cm_content">cm:content</form>
+	            <form labelId="search.form.label.cm_folder" descriptionId="search.form.desc.cm_folder">cm:folder</form>            
+	            <form labelId="type.ev_doc" description="Search for EisenVault Documents">ev:doc</form>
+	        </forms>
+	    </advanced-search>
+	</config>
+
+</alfresco-config>
