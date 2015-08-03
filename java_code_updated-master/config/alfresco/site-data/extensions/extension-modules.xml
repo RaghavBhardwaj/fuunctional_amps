@@ -1,0 +1,25 @@
+<extension>
+  <modules>
+    <module>
+      <id>Custom Share Header Menu</id>
+      <version>1.0</version>
+     <customizations>
+        <customization>
+          <targetPackageRoot>org.alfresco.share.header</targetPackageRoot>
+          <sourcePackageRoot>tutorials</sourcePackageRoot>
+        </customization>
+      </customizations>
+    <customizations>
+        <customization>
+          <targetPackageRoot>org.alfresco.documentlibrary</targetPackageRoot>
+          <sourcePackageRoot>templates</sourcePackageRoot>
+        </customization>
+      </customizations>
+    
+    
+    
+    </module>
+   
+  
+  </modules>
+</extension>
