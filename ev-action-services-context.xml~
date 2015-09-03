@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+
+<beans> 
+   <bean id="ac-email-templates" class="org.alfresco.repo.action.constraint.FolderContentsParameterConstraint" parent="action-constraint">      
+      <property name="dictionaryService" ref="dictionaryService"/>
+      <property name="searchService" ref="searchService"/>
+      <property name="nodeService" ref="nodeService"/>
+      <property name="namespaceService" ref="namespaceService" />
+      <property name="repository" ref="repositoryHelper" />
+      <property name="searchPath" value="your/path/to/folder/where/the/templates/reside"/>
+      <property name="cacheAllowableValues" value="false" />
+      <property name="nodeInclusionFilter">
+         <list>
+            <value>ftl</value>
+         </list>
+      </property>
+   </bean>
+</beans>
